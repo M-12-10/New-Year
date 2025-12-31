@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hello Kitty New Year 2026</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Nunito:wght@300;400;600;700&display=swap");
+
+      :root {
+        --pink: #ff7eb6;
+        --pink-deep: #ff4f9a;
+        --red: #e11d48;
+        --cream: #fff4fa;
+        --white: #ffffff;
+        --gold: #ffd166;
+        --shadow: 0 20px 45px rgba(255, 126, 182, 0.25);
+        --shadow-soft: 0 12px 30px rgba(15, 23, 42, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Nunito", "Trebuchet MS", sans-serif;
+        color: #3b0d2a;
+        background: radial-gradient(circle at top, #fff8fb 0%, #ffe5f1 45%, #ffd5e8 100%);
+      }
+
+      main {
+        min-height: 100vh;
+        overflow-x: hidden;
+        transform: translateY(0) scale(1);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
+      body.page-exit main {
+        opacity: 0;
+        transform: translateY(-12px) scale(0.98);
+      }
+
+      .panel {
+        min-height: 100vh;
+        padding: 64px 20px;
+        display: none;
+        position: relative;
+      }
+
+      .panel.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .hero-card {
+        width: min(1100px, 92vw);
+        background: rgba(255, 255, 255, 0.9);
+        border-radius: 32px;
+        padding: 48px 40px;
+        box-shadow: var(--shadow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .hero-card::before,
+      .hero-card::after {
+        content: "";
+        position: absolute;
+        width: 220px;
+        height: 220px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 79, 154, 0.25), rgba(255, 255, 255, 0));
+        z-index: 0;
+      }
+
+      .hero-card::before {
+        top: -80px;
+        left: -60px;
+      }
+
+      .hero-card::after {
+        bottom: -90px;
+        right: -40px;
+      }
+
+      .hero-card.clean::before,
+      .hero-card.clean::after {
+        display: none;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: #ffe0ee;
+        font-weight: 700;
+        color: #b91c4c;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        font-size: 0.75rem;
+      }
+
+      h1,
+      h2 {
+        font-family: "Cherry Bomb One", "Comic Sans MS", cursive;
+        margin: 20px 0 12px;
+        color: #d81b60;
+      }
+
+      h1 {
+        font-size: clamp(2.4rem, 5vw, 4.5rem);
+      }
+
+      h2 {
+        font-size: clamp(2.1rem, 4vw, 3.8rem);
+      }
+
+      .subtitle {
+        font-size: clamp(1rem, 2vw, 1.4rem);
+        margin-bottom: 24px;
+        color: #7c2040;
+      }
+
+      .kitty-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
+        flex-wrap: wrap;
+        margin: 24px 0 32px;
+      }
+
+      .kitty-figure {
+        position: relative;
+        display: inline-block;
+        width: clamp(130px, 22vw, 200px);
+        height: clamp(160px, 26vw, 230px);
+        padding: 10px;
+        border-radius: 28px;
+        overflow: hidden;
+        background: linear-gradient(180deg, #fff5fb, #ffe0f1);
+        border: 2px solid rgba(255, 126, 182, 0.4);
+        filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.2));
+        animation: float-up 6s ease-in-out infinite;
+      }
+
+      .kitty-figure.delay {
+        animation: float-down 6s ease-in-out infinite;
+      }
+
+      .kitty-figure.kitty-boy {
+        padding: 4px;
+      }
+
+      .kitty {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        display: block;
+      }
+
+      .kitty-figure.kitty-boy .kitty {
+        object-position: center 6%;
+        transform: scale(1.24);
+        transform-origin: center 14%;
+      }
+
+      .kitty-figure.kitty-girl .kitty {
+        object-position: center 8%;
+        transform: scale(1.05);
+      }
+
+      .bow {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 14px 32px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.9);
+        border: 2px solid rgba(255, 79, 154, 0.25);
+        box-shadow: 0 12px 26px rgba(255, 79, 154, 0.25);
+        font-family: "Cherry Bomb One", "Comic Sans MS", cursive;
+        font-size: 1.55rem;
+        letter-spacing: 3px;
+        color: #d81b60;
+      }
+
+      .bow span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .bow .heart {
+        font-size: 1.55rem;
+        color: #ff4f9a;
+        text-shadow: 0 6px 14px rgba(255, 79, 154, 0.35);
+      }
+
+      .countdown-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 18px;
+        margin-top: 12px;
+      }
+
+      .time-card {
+        padding: 18px 12px;
+        background: linear-gradient(145deg, #ffffff, #ffe7f3);
+        border-radius: 20px;
+        border: 2px solid rgba(255, 126, 182, 0.4);
+        box-shadow: var(--shadow-soft);
+      }
+
+      .time-card span {
+        display: block;
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 700;
+        color: #c2185b;
+      }
+
+      .time-card label {
+        display: block;
+        font-size: 0.85rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #7c2040;
+        margin-top: 6px;
+      }
+
+      .next-gate {
+        margin-top: 24px;
+        display: grid;
+        place-items: center;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(12px);
+        transition: max-height 0.45s ease, opacity 0.45s ease, transform 0.45s ease;
+        overflow: hidden;
+        pointer-events: none;
+      }
+
+      .next-gate.unlocked {
+        max-height: 160px;
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+        overflow: visible;
+      }
+
+      .next-action {
+        position: relative;
+        z-index: 1;
+        isolation: isolate;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        opacity: 0;
+        transform: translateY(16px) scale(0.94);
+      }
+
+      .next-gate.unlocked .next-action {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        animation: nextReveal 1.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .next-action::before,
+      .next-action::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        pointer-events: none;
+        opacity: 0;
+      }
+
+      .next-action::before {
+        width: 280px;
+        height: 280px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 175, 210, 0.5) 35%,
+          rgba(255, 145, 196, 0) 70%
+        );
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(2px);
+        z-index: -1;
+      }
+
+      .next-action::after {
+        width: 260px;
+        height: 260px;
+        border-radius: 50%;
+        border: 1px dashed rgba(255, 145, 196, 0.75);
+        box-shadow: 0 0 18px rgba(255, 145, 196, 0.5);
+        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+        z-index: -1;
+      }
+
+      .next-gate.unlocked .next-action::before {
+        animation: magicBloom 2.4s ease-out both;
+      }
+
+      .next-gate.unlocked .next-action::after {
+        animation: magicRing 2.6s ease-out both 0.2s;
+      }
+
+      .next-button {
+        position: relative;
+        overflow: hidden;
+        border: none;
+        background: linear-gradient(120deg, #ff4f9a, #ff8dbf);
+        color: white;
+        font-size: 1rem;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        padding: 12px 28px;
+        border-radius: 999px;
+        cursor: pointer;
+        box-shadow: 0 18px 28px rgba(255, 79, 154, 0.35);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .next-button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+        transform: translateX(-130%);
+        opacity: 0;
+      }
+
+      .next-gate.unlocked .next-button {
+        animation: buttonPulse 2.2s ease-out 0.35s both;
+      }
+
+      .next-gate.unlocked .next-button::before {
+        animation: buttonShine 2.4s ease-out 0.4s both;
+      }
+      .next-button:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 22px 34px rgba(255, 79, 154, 0.4);
+      }
+
+      .next-button:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .next-arrow {
+        font-size: 1.2rem;
+        color: #ff4f9a;
+        text-shadow: 0 4px 10px rgba(255, 79, 154, 0.35);
+        animation: arrowBounce 1s ease-in-out infinite;
+      }
+
+      .sparkles {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+      }
+
+      .sparkles span {
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 236, 247, 0.9) 40%,
+          rgba(255, 145, 196, 0.45) 70%,
+          rgba(255, 145, 196, 0) 100%
+        );
+        box-shadow: 0 0 12px rgba(255, 214, 237, 0.85), 0 0 24px rgba(255, 145, 196, 0.45);
+        opacity: 0.9;
+        position: absolute;
+        transform: rotate(45deg) scale(var(--sparkle-scale, 1));
+        animation: sparkle 3.5s ease-in-out infinite;
+      }
+
+      .sparkles span::before,
+      .sparkles span::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        width: 2px;
+        height: 12px;
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 145, 196, 0));
+        transform: translate(-50%, -50%);
+        border-radius: 999px;
+      }
+
+      .sparkles span::after {
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      .new-year-reveal {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0;
+        background: radial-gradient(
+          circle at center,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 193, 224, 0.85) 35%,
+          rgba(255, 79, 154, 0.05) 70%,
+          rgba(255, 79, 154, 0) 100%
+        );
+        mix-blend-mode: screen;
+        z-index: 5;
+      }
+
+      .new-year-reveal::before,
+      .new-year-reveal::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        border: 2px dashed rgba(255, 255, 255, 0.8);
+        inset: 18%;
+        opacity: 0;
+      }
+
+      .new-year-reveal::after {
+        inset: 30%;
+        border: 2px solid rgba(255, 145, 196, 0.6);
+      }
+
+      .new-year-reveal.active {
+        animation: newYearBurst 1.6s ease forwards;
+      }
+
+      .new-year-reveal.active::before {
+        animation: ringPulse 1.4s ease forwards;
+      }
+
+      .new-year-reveal.active::after {
+        animation: ringPulse 1.4s ease forwards 0.2s;
+      }
+
+      .celebration {
+        background: linear-gradient(145deg, #ffe0f0 0%, #fff9f1 50%, #ffd3e6 100%);
+      }
+
+      .celebration .hero-card {
+        text-align: center;
+        min-height: 420px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .celebration .hero-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 320px;
+        width: 100%;
+        height: 100%;
+      }
+
+      .cta-button {
+        margin-top: 24px;
+        padding: 14px 30px;
+        border-radius: 999px;
+        border: none;
+        background: linear-gradient(120deg, #ff4f9a, #ff93c5);
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        cursor: pointer;
+        box-shadow: 0 20px 30px rgba(255, 79, 154, 0.3);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .cta-button:hover {
+        transform: translateY(-3px) scale(1.02);
+        box-shadow: 0 24px 40px rgba(255, 79, 154, 0.35);
+      }
+
+      .celebration .cta-button {
+        margin-top: auto;
+      }
+
+      .panel.fade-out {
+        animation: panelFadeOut 0.8s ease forwards;
+      }
+
+      .panel.reveal {
+        animation: panelReveal 0.9s ease;
+      }
+
+      .fireworks {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.8;
+      }
+
+      .fireworks span {
+        position: absolute;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 2px dashed rgba(255, 255, 255, 0.9);
+        animation: burst 3.6s infinite;
+      }
+
+
+      .confetti {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+      }
+
+      .confetti span {
+        position: absolute;
+        width: 10px;
+        height: 16px;
+        border-radius: 4px;
+        opacity: 0.85;
+        animation: fall 5s linear infinite;
+      }
+
+      @keyframes float-up {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      @keyframes float-down {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(10px);
+        }
+      }
+
+
+      @keyframes sparkle {
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.6;
+        }
+        50% {
+          transform: scale(1.7);
+          opacity: 0.9;
+        }
+      }
+
+      @keyframes burst {
+        0% {
+          transform: scale(0.2);
+          opacity: 0.8;
+        }
+        80% {
+          transform: scale(1);
+          opacity: 0;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes fall {
+        0% {
+          transform: translateY(-100px) rotate(0deg);
+        }
+        100% {
+          transform: translateY(110vh) rotate(360deg);
+        }
+      }
+
+      @keyframes panelFadeOut {
+        0% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: translateY(-12px) scale(0.98);
+        }
+      }
+
+      @keyframes panelReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(20px) scale(0.98);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes newYearBurst {
+        0% {
+          opacity: 0;
+          transform: scale(0.6);
+        }
+        35% {
+          opacity: 1;
+          transform: scale(1);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.35);
+        }
+      }
+
+      @keyframes ringPulse {
+        0% {
+          opacity: 0.9;
+          transform: scale(0.6);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.4);
+        }
+      }
+
+      @keyframes arrowBounce {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(6px);
+        }
+      }
+
+      @keyframes nextReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(30px) scale(0.85);
+          filter: blur(8px);
+        }
+        65% {
+          opacity: 1;
+          transform: translateY(-10px) scale(1.08);
+          filter: blur(0);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes magicBloom {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.2);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.1);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(2.1);
+        }
+      }
+
+      @keyframes magicRing {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+        }
+        65% {
+          opacity: 0.85;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(2.3) rotate(32deg);
+        }
+      }
+
+      @keyframes buttonPulse {
+        0% {
+          box-shadow: 0 0 0 rgba(255, 79, 154, 0);
+        }
+        60% {
+          box-shadow: 0 0 36px rgba(255, 145, 196, 0.6);
+        }
+        100% {
+          box-shadow: 0 18px 28px rgba(255, 79, 154, 0.35);
+        }
+      }
+
+      @keyframes buttonShine {
+        0% {
+          opacity: 0;
+          transform: translateX(-130%);
+        }
+        40% {
+          opacity: 0.9;
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(130%);
+        }
+      }
+
+      @media (max-width: 720px) {
+        .hero-card {
+          padding: 36px 22px;
+        }
+
+        .kitty-row {
+          gap: 18px;
+          flex-direction: column;
+        }
+
+        .bow {
+          font-size: 1.3rem;
+          padding: 10px 24px;
+        }
+
+        .kitty-figure {
+          width: min(220px, 62vw);
+          height: min(250px, 72vw);
+        }
+
+        .celebration .hero-card {
+          min-height: 380px;
+        }
+
+        .celebration .hero-content {
+          min-height: 280px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .kitty,
+        .sparkles span,
+        .fireworks span,
+        .confetti span,
+        .next-arrow,
+        .next-action,
+        .next-action::before,
+        .next-action::after,
+        .next-button,
+        .next-button::before {
+          animation: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section id="countdown" class="panel active">
+        <div class="hero-card clean">
+          <div class="hero-content">
+            <h1>Countdown to 2026</h1>
+            <p class="subtitle">InshaAllah The Best Year Of Your Life Is Waiting For You, Maryam</p>
+            <div class="kitty-row">
+              <div class="kitty-figure kitty-girl">
+                <img
+                  class="kitty"
+                  src="https://pngfre.com/wp-content/uploads/hello-kitty-47-768x928.png"
+                  alt="Hello Kitty"
+                />
+              </div>
+              <div class="bow" aria-hidden="true">
+                <span>M <span class="heart">&#10084;</span> W</span>
+              </div>
+              <div class="kitty-figure kitty-boy delay" aria-label="Hello Kitty's Boyfriend">
+                <img
+                  class="kitty"
+                  src="boy-kitty.png"
+                  alt="Hello Kitty Boy"
+                />
+              </div>
+            </div>
+            <div class="countdown-grid" aria-live="polite">
+              <div class="time-card">
+                <span id="days">00</span>
+                <label>Days</label>
+              </div>
+              <div class="time-card">
+                <span id="hours">00</span>
+                <label>Hours</label>
+              </div>
+              <div class="time-card">
+                <span id="minutes">00</span>
+                <label>Minutes</label>
+              </div>
+              <div class="time-card">
+                <span id="seconds">00</span>
+                <label>Seconds</label>
+              </div>
+            </div>
+            <div class="next-gate" id="next-gate" aria-live="polite">
+              <div class="next-action">
+                <span class="next-arrow" aria-hidden="true">&#10140;</span>
+                <button id="unlock-next" class="next-button" type="button" disabled>Next</button>
+              </div>
+            </div>
+          </div>
+          <div class="sparkles" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      <section id="celebration" class="panel celebration">
+        <div class="hero-card">
+          <div class="hero-content">
+            <span class="pill">WORST YEAR OVER AT LAST</span>
+            <h2>Happy New Year 2026!!!</h2>
+            <p class="subtitle">Tap Here Momo!</p>
+            <button id="open-canvas" class="cta-button" type="button">Jaadu ka Button</button>
+          </div>
+        </div>
+        <div class="fireworks" aria-hidden="true">
+          <span style="top: 10%; left: 15%; animation-delay: 0s"></span>
+          <span style="top: 20%; right: 20%; animation-delay: 1s"></span>
+          <span style="bottom: 15%; left: 25%; animation-delay: 1.6s"></span>
+          <span style="bottom: 10%; right: 18%; animation-delay: 2.2s"></span>
+        </div>
+        <div class="confetti" aria-hidden="true"></div>
+      </section>
+
+    </main>
+    <div id="new-year-reveal" class="new-year-reveal" aria-hidden="true"></div>
+
+    <script>
+      const countdownSection = document.getElementById("countdown");
+      const celebrationSection = document.getElementById("celebration");
+      const newYearReveal = document.getElementById("new-year-reveal");
+      const openCanvasButton = document.getElementById("open-canvas");
+      const nextGate = document.getElementById("next-gate");
+      const nextButton = document.getElementById("unlock-next");
+      const confetti = document.querySelector(".confetti");
+      const sparkles = document.querySelector(".sparkles");
+      const timeEls = {
+        days: document.getElementById("days"),
+        hours: document.getElementById("hours"),
+        minutes: document.getElementById("minutes"),
+        seconds: document.getElementById("seconds"),
+      };
+      const canvasUrl = "canvas.html";
+
+      // Midnight Jan 1, 2026 in Pakistan (UTC+5).
+      const targetTime = Date.UTC(2025, 11, 31, 19, 0, 0);
+
+      function pad(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function setCountdownValues(totalSeconds) {
+        const days = Math.floor(totalSeconds / 86400);
+        const hours = Math.floor((totalSeconds % 86400) / 3600);
+        const minutes = Math.floor((totalSeconds % 3600) / 60);
+        const seconds = totalSeconds % 60;
+        timeEls.days.textContent = days;
+        timeEls.hours.textContent = pad(hours);
+        timeEls.minutes.textContent = pad(minutes);
+        timeEls.seconds.textContent = pad(seconds);
+      }
+
+      let countdownLocked = false;
+      let nextUnlocked = false;
+      let nextUnlockQueued = false;
+
+      function unlockNext() {
+        if (nextUnlocked) return;
+        nextUnlocked = true;
+        nextGate.classList.add("unlocked");
+        nextButton.disabled = false;
+      }
+
+      function updateCountdown() {
+        if (countdownLocked) return;
+        const now = Date.now();
+        let diff = targetTime - now;
+        if (diff <= 0) {
+          diff = 0;
+          countdownLocked = true;
+          if (!nextUnlockQueued) {
+            nextUnlockQueued = true;
+            nextGate.scrollIntoView({ behavior: "smooth", block: "center" });
+            setTimeout(() => {
+              unlockNext();
+            }, 450);
+          }
+        }
+        const totalSeconds = Math.floor(diff / 1000);
+        setCountdownValues(totalSeconds);
+      }
+
+      let celebrationShown = false;
+      function showCelebration() {
+        if (celebrationShown) return;
+        celebrationShown = true;
+        countdownSection.classList.add("fade-out");
+        newYearReveal.classList.add("active");
+        setTimeout(() => {
+          countdownSection.classList.remove("active");
+          countdownSection.classList.remove("fade-out");
+          celebrationSection.classList.add("active", "reveal");
+          startConfetti();
+        }, 800);
+        setTimeout(() => {
+          celebrationSection.classList.remove("reveal");
+          newYearReveal.classList.remove("active");
+        }, 1800);
+      }
+
+      function startConfetti() {
+        confetti.innerHTML = "";
+        const colors = ["#ff4f9a", "#ffd166", "#ff93c5", "#ffffff", "#f97316"];
+        for (let i = 0; i < 80; i += 1) {
+          const piece = document.createElement("span");
+          piece.style.left = Math.random() * 100 + "%";
+          piece.style.animationDelay = Math.random() * 3 + "s";
+          piece.style.background = colors[i % colors.length];
+          piece.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
+          piece.style.transform = "rotate(" + Math.random() * 360 + "deg)";
+          piece.style.animationDuration = Math.random() * 3 + 3 + "s";
+          confetti.appendChild(piece);
+        }
+      }
+
+      function seedSparkles() {
+        sparkles.innerHTML = "";
+        for (let i = 0; i < 18; i += 1) {
+          const sparkle = document.createElement("span");
+          const size = Math.random() * 8 + 8;
+          sparkle.style.width = size + "px";
+          sparkle.style.height = size + "px";
+          sparkle.style.left = Math.random() * 100 + "%";
+          sparkle.style.top = Math.random() * 100 + "%";
+          sparkle.style.animationDelay = Math.random() * 2 + "s";
+          sparkle.style.setProperty("--sparkle-scale", (Math.random() * 1.2 + 0.4).toFixed(2));
+          sparkles.appendChild(sparkle);
+        }
+      }
+
+      function goToCanvas() {
+        if (document.body.classList.contains("page-exit")) return;
+        document.body.classList.add("page-exit");
+        setTimeout(() => {
+          window.location.href = canvasUrl;
+        }, 350);
+      }
+
+      function celebrate() {
+        showCelebration();
+      }
+
+      window.celebrate = celebrate;
+      window.next = () => {
+        countdownLocked = true;
+        setCountdownValues(0);
+        unlockNext();
+      };
+
+      openCanvasButton.addEventListener("click", goToCanvas);
+      nextButton.addEventListener("click", () => {
+        if (!nextUnlocked) return;
+        showCelebration();
+      });
+
+      seedSparkles();
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    </script>
+  </body>
+</html>

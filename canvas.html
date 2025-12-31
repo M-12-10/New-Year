@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>25 Thoughts for 2025</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Nunito:wght@300;400;600;700&display=swap");
+
+      :root {
+        --rose: #ff5ba5;
+        --rose-deep: #d81b60;
+        --berry: #7c2040;
+        --glass: rgba(255, 255, 255, 0.55);
+        --glass-strong: rgba(255, 255, 255, 0.7);
+        --stroke: rgba(255, 145, 196, 0.45);
+        --shadow: 0 25px 60px rgba(216, 27, 96, 0.2);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Nunito", "Trebuchet MS", sans-serif;
+        color: #3b0d2a;
+        background: radial-gradient(circle at top, #fff5fb 0%, #ffe2f2 40%, #ffd1ea 100%);
+        overflow-x: hidden;
+        animation: pageFadeIn 1.8s ease-out both;
+      }
+
+      main {
+        min-height: 100vh;
+        padding: 70px 20px 40px;
+        position: relative;
+      }
+
+      .glow {
+        position: absolute;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        filter: blur(10px);
+        opacity: 0.45;
+        pointer-events: none;
+        background: radial-gradient(
+          circle,
+          rgba(255, 126, 182, 0.4) 0%,
+          rgba(255, 126, 182, 0) 70%
+        );
+        animation: drift 10s ease-in-out infinite;
+      }
+
+      .glow.one {
+        top: -80px;
+        left: -60px;
+      }
+
+      .glow.two {
+        bottom: 20px;
+        right: 8%;
+        opacity: 0.28;
+        animation-delay: 2s;
+      }
+
+      .glow.three {
+        top: 40%;
+        right: -80px;
+        animation-delay: 4s;
+      }
+
+      .canvas-content {
+        width: min(1200px, 94vw);
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+      }
+
+      .canvas-header {
+        text-align: center;
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        font-family: "Cherry Bomb One", "Comic Sans MS", cursive;
+        font-size: clamp(2.3rem, 5vw, 4rem);
+        margin: 0 0 10px;
+        color: var(--rose-deep);
+      }
+
+      .subtitle {
+        font-size: clamp(1rem, 2vw, 1.3rem);
+        color: var(--berry);
+        margin: 0 0 6px;
+      }
+
+      .hint {
+        margin: 0;
+        font-size: 0.9rem;
+        color: rgba(124, 32, 64, 0.75);
+        letter-spacing: 0.4px;
+      }
+
+      .love-line {
+        font-family: "Cherry Bomb One", "Comic Sans MS", cursive;
+        font-size: clamp(1.05rem, 2.1vw, 1.45rem);
+        color: #ff7dbd;
+        margin: 0;
+        letter-spacing: 0.4px;
+        line-height: 1.3;
+        text-shadow: 0 6px 14px rgba(255, 125, 189, 0.25);
+      }
+
+      .slider-shell {
+        --card-width: min(80vw, 480px);
+        margin-top: 24px;
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+        border-radius: 36px;
+        padding: 18px 10px 26px;
+        background: linear-gradient(140deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.18));
+        border: 1px solid rgba(255, 255, 255, 0.72);
+        box-shadow: var(--shadow), inset 0 0 28px rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .final-gate {
+        margin-top: 28px;
+        display: grid;
+        place-items: center;
+        gap: 12px;
+        opacity: 0;
+        transform: translateY(18px) scale(0.95);
+        transition: opacity 0.5s ease, transform 0.5s ease;
+        pointer-events: none;
+        text-align: center;
+        position: relative;
+        isolation: isolate;
+        overflow: hidden;
+        scroll-margin-top: 120px;
+      }
+
+      .final-gate::before,
+      .final-gate::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        pointer-events: none;
+        opacity: 0;
+        z-index: -1;
+      }
+
+      .final-gate::before {
+        width: min(70vw, 320px);
+        height: min(70vw, 320px);
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 160, 210, 0.55) 35%,
+          rgba(255, 120, 195, 0) 70%
+        );
+        transform: translate(-50%, -50%) scale(0.4);
+        filter: blur(2px);
+      }
+
+      .final-gate::after {
+        width: min(78vw, 360px);
+        height: min(78vw, 360px);
+        border-radius: 50%;
+        border: 1px dashed rgba(255, 145, 196, 0.8);
+        box-shadow: 0 0 18px rgba(255, 145, 196, 0.45);
+        transform: translate(-50%, -50%) scale(0.4) rotate(0deg);
+      }
+
+      .final-gate.unlocked {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+        animation: finalReveal 1.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+      }
+
+      .final-gate.unlocked::before {
+        animation: finalBloom 2.2s ease-out both;
+      }
+
+      .final-gate.unlocked::after {
+        animation: finalRing 2.6s ease-out both 0.1s;
+      }
+
+      .final-caption {
+        margin: 0;
+        font-size: clamp(1rem, 2.2vw, 1.25rem);
+        color: #ff5fb8;
+        text-shadow: 0 8px 16px rgba(255, 95, 184, 0.35);
+      }
+
+      .time-travel-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 12px 26px;
+        border-radius: 999px;
+        background: linear-gradient(120deg, #ff4f9a, #ff93c5);
+        color: white;
+        font-weight: 700;
+        letter-spacing: 0.4px;
+        text-decoration: none;
+        box-shadow: 0 16px 28px rgba(255, 79, 154, 0.28);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .time-travel-button::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.85), transparent);
+        transform: translateX(-140%);
+        opacity: 0;
+      }
+
+      .final-gate.unlocked .time-travel-button {
+        animation: finalButtonPulse 2s ease-out 0.35s both;
+      }
+
+      .final-gate.unlocked .time-travel-button::before {
+        animation: finalButtonShine 2.1s ease-out 0.45s both;
+      }
+
+      .time-travel-button:hover {
+        transform: translateY(-2px) scale(1.02);
+        box-shadow: 0 22px 34px rgba(255, 79, 154, 0.35);
+      }
+
+      .slider-shell::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(120deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .slider-track {
+        display: flex;
+        align-items: stretch;
+        gap: 20px;
+        padding: 18px 70px 24px;
+        overflow-x: hidden;
+        overscroll-behavior-x: none;
+        scroll-snap-type: x mandatory;
+        scroll-snap-stop: always;
+        scroll-padding: 0 calc((100% - var(--card-width)) / 2);
+        scroll-behavior: smooth;
+        perspective: 1000px;
+        cursor: default;
+        touch-action: pan-y;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+      }
+
+      .slider-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .note-card {
+        scroll-snap-align: center;
+        flex: 0 0 var(--card-width);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.3));
+        border-radius: 28px;
+        border: 1px solid rgba(255, 255, 255, 0.85);
+        padding: 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        min-height: 400px;
+        box-shadow: 0 18px 40px rgba(117, 24, 63, 0.18);
+        transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+        position: relative;
+        overflow: hidden;
+        transform-style: preserve-3d;
+        opacity: 0.75;
+      }
+
+      .note-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at 20% 10%, rgba(255, 255, 255, 0.8), transparent 55%);
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .note-card > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .note-card.is-active {
+        box-shadow: 0 32px 70px rgba(117, 24, 63, 0.28);
+        opacity: 1;
+      }
+
+      .note-meta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        text-align: center;
+      }
+
+      .note-index {
+        font-family: "Cherry Bomb One", "Comic Sans MS", cursive;
+        font-weight: 700;
+        color: #ffffff;
+        font-size: 0.8rem;
+        --heart-w: 20px;
+        --heart-h: 18px;
+        width: var(--heart-w);
+        height: var(--heart-h);
+        display: grid;
+        place-items: center;
+        position: relative;
+        transform: rotate(-45deg);
+        background: #ff4f9a;
+        border-radius: 2px;
+        box-shadow: 0 8px 14px rgba(255, 79, 154, 0.3);
+      }
+
+      .note-index::before,
+      .note-index::after {
+        content: "";
+        position: absolute;
+        width: var(--heart-w);
+        height: var(--heart-h);
+        border-radius: 50%;
+        background: #ff4f9a;
+      }
+
+      .note-index::before {
+        top: calc(var(--heart-h) / -2);
+        left: 0;
+      }
+
+      .note-index::after {
+        top: 0;
+        left: calc(var(--heart-w) / 2);
+      }
+
+      .note-index span {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        line-height: 1;
+        transform: rotate(45deg) translate(0, -1px);
+        position: relative;
+        z-index: 1;
+        text-shadow: 0 6px 12px rgba(255, 255, 255, 0.35);
+      }
+
+      .nav-button {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+        border: 1px solid rgba(255, 145, 196, 0.6);
+        background: rgba(255, 255, 255, 0.9);
+        color: #ff4f9a;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 14px 26px rgba(255, 79, 154, 0.2);
+        display: grid;
+        place-items: center;
+        z-index: 3;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .nav-button::after {
+        content: "\2764";
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        font-size: 0.65rem;
+        color: rgba(255, 79, 154, 0.7);
+      }
+
+      .nav-button:hover {
+        transform: translateY(-50%) scale(1.05);
+        box-shadow: 0 18px 30px rgba(255, 79, 154, 0.25);
+      }
+
+      .nav-button:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+        box-shadow: none;
+      }
+
+      .nav-button.prev {
+        left: 16px;
+      }
+
+      .nav-button.next {
+        right: 16px;
+      }
+
+      .photo-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 9 / 16;
+        border-radius: 22px;
+        overflow: hidden;
+        background: linear-gradient(145deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.4));
+        border: 1px solid rgba(255, 145, 196, 0.55);
+        display: grid;
+        place-items: center;
+        padding: 6px;
+        font-weight: 700;
+        color: var(--rose-deep);
+        box-shadow: inset 0 0 24px rgba(255, 255, 255, 0.55);
+      }
+
+      .photo-frame::before {
+        content: "";
+        position: absolute;
+        inset: 8px;
+        border-radius: 18px;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 255, 255, 0.7),
+          rgba(255, 255, 255, 0) 45%
+        );
+        pointer-events: none;
+        opacity: 0.8;
+        z-index: 0;
+      }
+
+      .photo-frame > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .photo-frame img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center top;
+        border-radius: 18px;
+      }
+
+      .photo-frame.missing::after {
+        content: attr(data-label);
+        padding: 10px;
+        font-size: 0.85rem;
+        text-align: center;
+      }
+
+      .note-body {
+        flex: 1;
+        min-height: 120px;
+        padding: 12px 14px;
+        border-radius: 18px;
+        background: rgba(255, 255, 255, 0.8);
+        border: 1px solid rgba(255, 145, 196, 0.4);
+        font-size: 0.98rem;
+        line-height: 1.5;
+        color: #6b1634;
+        box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.6);
+      }
+
+      .note-body:focus {
+        outline: 2px solid rgba(255, 91, 165, 0.5);
+        background: rgba(255, 255, 255, 0.9);
+      }
+
+      @keyframes drift {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+
+      @keyframes pageFadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes finalReveal {
+        0% {
+          opacity: 0;
+          transform: translateY(24px) scale(0.92);
+          filter: blur(8px);
+        }
+        60% {
+          opacity: 1;
+          transform: translateY(-6px) scale(1.03);
+          filter: blur(0);
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      @keyframes finalBloom {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.25);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(-50%, -50%) scale(1.05);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(1.8);
+        }
+      }
+
+      @keyframes finalRing {
+        0% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(0.35) rotate(0deg);
+        }
+        65% {
+          opacity: 0.8;
+        }
+        100% {
+          opacity: 0;
+          transform: translate(-50%, -50%) scale(2) rotate(24deg);
+        }
+      }
+
+      @keyframes finalButtonPulse {
+        0% {
+          box-shadow: 0 0 0 rgba(255, 79, 154, 0);
+        }
+        60% {
+          box-shadow: 0 0 30px rgba(255, 145, 196, 0.6);
+        }
+        100% {
+          box-shadow: 0 16px 28px rgba(255, 79, 154, 0.28);
+        }
+      }
+
+      @keyframes finalButtonShine {
+        0% {
+          opacity: 0;
+          transform: translateX(-140%);
+        }
+        40% {
+          opacity: 0.9;
+        }
+        100% {
+          opacity: 0;
+          transform: translateX(140%);
+        }
+      }
+
+      @media (max-width: 720px) {
+        main {
+          padding: 50px 14px 40px;
+        }
+
+        .slider-shell {
+          border-radius: 26px;
+          padding: 12px 6px 18px;
+          max-width: none;
+          --card-width: 84vw;
+        }
+
+        .slider-track {
+          padding: 12px 52px 18px;
+          gap: 18px;
+        }
+
+        .note-card {
+          min-height: 360px;
+        }
+
+        .nav-button {
+          width: 40px;
+          height: 40px;
+          font-size: 1.3rem;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        body {
+          animation: none;
+        }
+
+        .glow,
+        .note-card,
+        .final-gate,
+        .final-gate::before,
+        .final-gate::after,
+        .time-travel-button,
+        .time-travel-button::before {
+          animation: none;
+        }
+
+        .slider-track {
+          scroll-behavior: auto;
+        }
+
+        .final-gate,
+        .time-travel-button {
+          transition: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="glow one" aria-hidden="true"></div>
+      <div class="glow two" aria-hidden="true"></div>
+      <div class="glow three" aria-hidden="true"></div>
+
+      <div class="canvas-content">
+        <header class="canvas-header">
+          <h1>25 Thoughts for 2025</h1>
+          <p class="love-line">Every look, every sight, every part of you makes my heart sing.</p>
+          <p class="love-line">So here, my thoughts lay bare before you Maryam, my gorgeous girl.</p>
+        </header>
+
+        <section class="slider-shell">
+          <button class="nav-button prev" type="button" id="prev-note" aria-label="Previous note">
+            &#10094;
+          </button>
+          <button class="nav-button next" type="button" id="next-note" aria-label="Next note">
+            &#10095;
+          </button>
+          <div id="notes-track" class="slider-track" aria-live="polite"></div>
+        </section>
+
+        <div class="final-gate" id="final-gate" aria-live="polite">
+          <p class="final-caption">You made it to the end Momo, Congrats! Wanna go back in time? Tap here!</p>
+          <a class="time-travel-button" href="https://m-12-10.github.io/Happy-Birthday/">
+            First one ever!
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <script>
+      const notesTrack = document.getElementById("notes-track");
+      const prompts = [
+        "OMFG, what a cute little Faisalabai baby born in Multan. Wonder how it looks like now hmmm.",
+        "Oh cool, she has grown up to be the prettiest girl I have ever seen. I didn't know her as a child, but I am so lucky I get to know her now.",
+        "Oh Maryam! How your smile makes my heart melt. My fav person wearing my fav colors with butterflies around her, never gets old!",
+        "The way she calls me her Husband, oh Ya Allah please let me hear this forever both in this world and the next from my BEST WIFE.",
+        "Thumbs up, prettiest mehndi, even prettier soul. Gosh you are so adorable Maryam.",
+        "Keep looking at me like this and Imma end up pregnant you absolute HOTTIE.",
+        "ALMOST JUMPED THROUGH MY MONITOR WHILE TYPING THIS, I WANNA SEE THIS VIEW SO BAD IRL",
+        "Ahhh, twintails. What look can't she pull off? My Maryam O My Maryam, you are beauty incarnate",
+        "This is what I love about you, you are gorgeous AND funny. You manage to cheer me up when I need it most.",
+        "Your floof wavy hair makes you look like a lioness, and I kneel before thy divine presence my love",
+        "Very conflicting day, simultaneously the happiest and saddest I had ever been up till this point. However, I truly did appreciate the gift my cutuuu!",
+        "We live and we learn, don't we? Especially if you keep looking at me with those eyes that say, 'I believe in you'.",
+        "My eepy head, the way you make normal days special for me by your existence. What a blessing you are!",
+        "Don't lose those curves lady! They are all mine to explore hehe.",
+        "Your genuine reaction to this information? HAHA MY SOHNA DON",
+        "I admire your heart so much. The way you feel things, the way you almost become a caring mother when I am suffering. Oh gosh you are beautiful inside and out.",
+        "Tera mera safarrrr, oh how I miss our music dates my gorgeous lioness",
+        "What a sight, oh what a sight. If it were up to me, we wouldn't be apart at all.",
+        "God I wish we talked more about each others' interests more and participated in some of them, or picked new ones together so we never ran out of things to talk about.",
+        "CRUSH ME WITH THOSE THIGHS YOU DELECTABLE GODDESS. AND BE MINE FOREVER",
+        "BABY I AM PREYING ON YOU TONIGHT, HUNT YOU DOWN EAT YOU ALIVE, JUST LIKE ANIMALS OOOOO",
+        "HAHA ye dekh ke yehi thought aya na? 'Moty chup karja'",
+        "Gosh I wish we stay together forever, my best woman. I hope your soul finds some peace. We can actually commit to acts of love, fun, LIVE LIFE beyond the chores, beyond the daily routine.",
+        "You have been the strongest girl ever this past year, so I pray ke the next year and all those to come next are full of blessings for you.",
+        "I LOVE YOU MORE MARYAM, AND I AGAIN PRAY KE WE KEEP LOVING EACH OTHER FOREVER. Hope you liked this cutu :) Lemme know back in SC!",
+      ];
+
+      function buildNotes() {
+        const fragment = document.createDocumentFragment();
+        prompts.forEach((prompt, index) => {
+          const card = document.createElement("article");
+          card.className = "note-card";
+
+          const meta = document.createElement("div");
+          meta.className = "note-meta";
+
+          const number = document.createElement("span");
+          number.className = "note-index";
+          const numberText = document.createElement("span");
+          numberText.textContent = String(index + 1);
+          number.appendChild(numberText);
+
+          meta.appendChild(number);
+
+          const frame = document.createElement("div");
+          frame.className = "photo-frame missing";
+          frame.dataset.label = "Momo/" + (index + 1) + ".jpg";
+
+          const img = document.createElement("img");
+          img.loading = "lazy";
+          img.alt = "Photo " + (index + 1);
+          img.src = "Momo/" + (index + 1) + ".jpg";
+          img.onerror = () => {
+            frame.classList.add("missing");
+            img.style.display = "none";
+          };
+          img.onload = () => {
+            frame.classList.remove("missing");
+          };
+          frame.appendChild(img);
+
+          const note = document.createElement("div");
+          note.className = "note-body";
+          note.setAttribute("contenteditable", "false");
+          note.textContent = prompt;
+
+          card.appendChild(meta);
+          card.appendChild(frame);
+          card.appendChild(note);
+          fragment.appendChild(card);
+        });
+        notesTrack.appendChild(fragment);
+      }
+
+      const cards = [];
+      let rafId = null;
+      let activeIndex = 0;
+      const prevButton = document.getElementById("prev-note");
+      const nextButton = document.getElementById("next-note");
+      const finalGate = document.getElementById("final-gate");
+      let finalUnlocked = false;
+      let finalAutoScrolled = false;
+
+      function cacheCards() {
+        cards.length = 0;
+        cards.push(...document.querySelectorAll(".note-card"));
+      }
+
+      function updateCarousel() {
+        if (!cards.length) return;
+        const trackCenter = notesTrack.scrollLeft + notesTrack.clientWidth / 2;
+        const trackWidth = notesTrack.clientWidth || 1;
+        let closestCard = null;
+        let closestDistance = Infinity;
+        let closestIndex = 0;
+
+        cards.forEach((card, index) => {
+          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const distance = cardCenter - trackCenter;
+          const absDistance = Math.abs(distance);
+          if (absDistance < closestDistance) {
+            closestDistance = absDistance;
+            closestCard = card;
+            closestIndex = index;
+          }
+
+          const normalized = distance / trackWidth;
+          const scale = 1 - Math.min(absDistance / trackWidth, 0.22);
+          const rotate = Math.max(Math.min(normalized * 12, 12), -12);
+          const lift = Math.min(absDistance / trackWidth * 18, 18);
+          card.style.transform =
+            "translateY(" + lift + "px) scale(" + scale + ") rotateY(" + rotate + "deg)";
+          card.style.opacity = String(1 - Math.min(absDistance / trackWidth * 0.6, 0.5));
+          card.style.zIndex = String(Math.round((1 - Math.abs(normalized)) * 100));
+        });
+
+        cards.forEach((card) => {
+          card.classList.toggle("is-active", card === closestCard);
+        });
+
+        activeIndex = closestIndex;
+        prevButton.disabled = activeIndex === 0;
+        nextButton.disabled = activeIndex === cards.length - 1;
+        if (finalGate) {
+          const isLast = activeIndex === cards.length - 1;
+          if (isLast && !finalUnlocked) {
+            finalUnlocked = true;
+            finalGate.classList.add("unlocked");
+          } else if (finalUnlocked) {
+            finalGate.classList.add("unlocked");
+          }
+          if (isLast && !finalAutoScrolled) {
+            finalAutoScrolled = true;
+            setTimeout(() => {
+              finalGate.scrollIntoView({ behavior: "smooth", block: "end" });
+            }, 120);
+          }
+        }
+      }
+
+      function onScroll() {
+        if (rafId) return;
+        rafId = requestAnimationFrame(() => {
+          rafId = null;
+          updateCarousel();
+        });
+      }
+
+      function scrollToIndex(index) {
+        if (!cards.length) return;
+        const clamped = Math.max(0, Math.min(cards.length - 1, index));
+        const target = cards[clamped];
+        const left = target.offsetLeft - (notesTrack.clientWidth - target.offsetWidth) / 2;
+        notesTrack.scrollTo({ left, behavior: "smooth" });
+      }
+
+      buildNotes();
+      cacheCards();
+      updateCarousel();
+      notesTrack.addEventListener("scroll", onScroll, { passive: true });
+      notesTrack.addEventListener(
+        "wheel",
+        (event) => {
+          const isHorizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+          if (isHorizontal) {
+            event.preventDefault();
+          }
+        },
+        { passive: false }
+      );
+      window.addEventListener("resize", updateCarousel);
+      prevButton.addEventListener("click", () => scrollToIndex(activeIndex - 1));
+      nextButton.addEventListener("click", () => scrollToIndex(activeIndex + 1));
+    </script>
+  </body>
+</html>
