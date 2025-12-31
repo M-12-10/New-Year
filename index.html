@@ -769,6 +769,35 @@
           animation: none;
         }
       }
+
+      html[data-motion="lite"] .kitty-figure {
+        animation: none;
+        filter: none;
+      }
+
+      html[data-motion="lite"] .sparkles,
+      html[data-motion="lite"] .fireworks,
+      html[data-motion="lite"] .confetti {
+        display: none;
+      }
+
+      html[data-motion="lite"] .next-arrow {
+        animation: none;
+      }
+
+      html[data-motion="lite"] .hero-card,
+      html[data-motion="lite"] .time-card,
+      html[data-motion="lite"] .bow,
+      html[data-motion="lite"] .next-button,
+      html[data-motion="lite"] .cta-button {
+        box-shadow: none;
+      }
+
+      html[data-motion="off"] .sparkles,
+      html[data-motion="off"] .fireworks,
+      html[data-motion="off"] .confetti {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -863,6 +892,18 @@
         seconds: document.getElementById("seconds"),
       };
       const canvasUrl = "canvas.html";
+      const motionSettings = (() => {
+        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const narrowScreen = window.matchMedia("(max-width: 720px)").matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4;
+        const lowCpu =
+          typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+        const lite = !prefersReduced && (narrowScreen || saveData || lowMemory || lowCpu);
+        const level = prefersReduced ? "off" : lite ? "lite" : "full";
+        document.documentElement.dataset.motion = level;
+        return { level, scrollBehavior: level === "full" ? "smooth" : "auto" };
+      })();
 
       // Midnight Jan 1, 2026 in Pakistan (UTC+5).
       const targetTime = Date.UTC(2025, 11, 31, 19, 0, 0);
@@ -902,7 +943,10 @@
           countdownLocked = true;
           if (!nextUnlockQueued) {
             nextUnlockQueued = true;
-            nextGate.scrollIntoView({ behavior: "smooth", block: "center" });
+            nextGate.scrollIntoView({
+              behavior: motionSettings.scrollBehavior,
+              block: "center",
+            });
             setTimeout(() => {
               unlockNext();
             }, 450);
@@ -931,6 +975,7 @@
       }
 
       function startConfetti() {
+        if (motionSettings.level !== "full") return;
         confetti.innerHTML = "";
         const colors = ["#ff4f9a", "#ffd166", "#ff93c5", "#ffffff", "#f97316"];
         for (let i = 0; i < 80; i += 1) {
@@ -946,6 +991,7 @@
       }
 
       function seedSparkles() {
+        if (motionSettings.level !== "full") return;
         sparkles.innerHTML = "";
         for (let i = 0; i < 18; i += 1) {
           const sparkle = document.createElement("span");

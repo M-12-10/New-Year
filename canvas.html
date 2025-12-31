@@ -629,6 +629,41 @@
           transition: none;
         }
       }
+
+      html[data-motion="lite"] .glow {
+        animation: none;
+      }
+
+      html[data-motion="lite"] .slider-shell,
+      html[data-motion="lite"] .note-card {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        box-shadow: none;
+      }
+
+      html[data-motion="lite"] .slider-track {
+        perspective: none;
+      }
+
+      html[data-motion="lite"] .note-card {
+        transform-style: flat;
+      }
+
+      html[data-motion="lite"] .final-gate::before,
+      html[data-motion="lite"] .final-gate::after {
+        display: none;
+      }
+
+      html[data-motion="lite"] .time-travel-button,
+      html[data-motion="lite"] .nav-button {
+        box-shadow: none;
+      }
+
+      html[data-motion="off"] .glow,
+      html[data-motion="off"] .final-gate::before,
+      html[data-motion="off"] .final-gate::after {
+        display: none;
+      }
     </style>
   </head>
   <body>
@@ -664,6 +699,19 @@
     </main>
 
     <script>
+      const motionSettings = (() => {
+        const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        const narrowScreen = window.matchMedia("(max-width: 720px)").matches;
+        const saveData = navigator.connection && navigator.connection.saveData;
+        const lowMemory = typeof navigator.deviceMemory === "number" && navigator.deviceMemory <= 4;
+        const lowCpu =
+          typeof navigator.hardwareConcurrency === "number" && navigator.hardwareConcurrency <= 4;
+        const lite = !prefersReduced && (narrowScreen || saveData || lowMemory || lowCpu);
+        const level = prefersReduced ? "off" : lite ? "lite" : "full";
+        document.documentElement.dataset.motion = level;
+        return { level, scrollBehavior: level === "full" ? "smooth" : "auto" };
+      })();
+
       const notesTrack = document.getElementById("notes-track");
       const prompts = [
         "OMFG, what a cute little Faisalabai baby born in Multan. Wonder how it looks like now hmmm.",
@@ -741,8 +789,10 @@
       }
 
       const cards = [];
+      const cardCenters = [];
       let rafId = null;
       let activeIndex = 0;
+      const isFullMotion = motionSettings.level === "full";
       const prevButton = document.getElementById("prev-note");
       const nextButton = document.getElementById("next-note");
       const finalGate = document.getElementById("final-gate");
@@ -751,19 +801,26 @@
 
       function cacheCards() {
         cards.length = 0;
+        cardCenters.length = 0;
         cards.push(...document.querySelectorAll(".note-card"));
+        cards.forEach((card) => {
+          cardCenters.push(card.offsetLeft + card.offsetWidth / 2);
+        });
       }
 
       function updateCarousel() {
         if (!cards.length) return;
         const trackCenter = notesTrack.scrollLeft + notesTrack.clientWidth / 2;
         const trackWidth = notesTrack.clientWidth || 1;
+        const maxScaleDrop = isFullMotion ? 0.22 : 0.12;
+        const maxLift = isFullMotion ? 18 : 10;
+        const opacityDrop = isFullMotion ? 0.6 : 0.4;
         let closestCard = null;
         let closestDistance = Infinity;
         let closestIndex = 0;
 
         cards.forEach((card, index) => {
-          const cardCenter = card.offsetLeft + card.offsetWidth / 2;
+          const cardCenter = cardCenters[index] || 0;
           const distance = cardCenter - trackCenter;
           const absDistance = Math.abs(distance);
           if (absDistance < closestDistance) {
@@ -773,12 +830,14 @@
           }
 
           const normalized = distance / trackWidth;
-          const scale = 1 - Math.min(absDistance / trackWidth, 0.22);
-          const rotate = Math.max(Math.min(normalized * 12, 12), -12);
-          const lift = Math.min(absDistance / trackWidth * 18, 18);
-          card.style.transform =
-            "translateY(" + lift + "px) scale(" + scale + ") rotateY(" + rotate + "deg)";
-          card.style.opacity = String(1 - Math.min(absDistance / trackWidth * 0.6, 0.5));
+          const scale = 1 - Math.min(absDistance / trackWidth, maxScaleDrop);
+          const rotate = isFullMotion ? Math.max(Math.min(normalized * 12, 12), -12) : 0;
+          const lift = Math.min(absDistance / trackWidth * maxLift, maxLift);
+          const baseTransform = "translateY(" + lift + "px) scale(" + scale + ")";
+          card.style.transform = isFullMotion
+            ? baseTransform + " rotateY(" + rotate + "deg)"
+            : baseTransform;
+          card.style.opacity = String(1 - Math.min(absDistance / trackWidth * opacityDrop, 0.5));
           card.style.zIndex = String(Math.round((1 - Math.abs(normalized)) * 100));
         });
 
@@ -800,7 +859,10 @@
           if (isLast && !finalAutoScrolled) {
             finalAutoScrolled = true;
             setTimeout(() => {
-              finalGate.scrollIntoView({ behavior: "smooth", block: "end" });
+              finalGate.scrollIntoView({
+                behavior: motionSettings.scrollBehavior,
+                block: "end",
+              });
             }, 120);
           }
         }
@@ -819,7 +881,12 @@
         const clamped = Math.max(0, Math.min(cards.length - 1, index));
         const target = cards[clamped];
         const left = target.offsetLeft - (notesTrack.clientWidth - target.offsetWidth) / 2;
-        notesTrack.scrollTo({ left, behavior: "smooth" });
+        notesTrack.scrollTo({ left, behavior: motionSettings.scrollBehavior });
+      }
+
+      function handleResize() {
+        cacheCards();
+        updateCarousel();
       }
 
       buildNotes();
@@ -836,7 +903,7 @@
         },
         { passive: false }
       );
-      window.addEventListener("resize", updateCarousel);
+      window.addEventListener("resize", handleResize);
       prevButton.addEventListener("click", () => scrollToIndex(activeIndex - 1));
       nextButton.addEventListener("click", () => scrollToIndex(activeIndex + 1));
     </script>
