@@ -24,6 +24,11 @@
         box-sizing: border-box;
       }
 
+      html,
+      body {
+        touch-action: pan-y;
+      }
+
       body {
         margin: 0;
         font-family: "Nunito", "Trebuchet MS", sans-serif;
@@ -725,6 +730,18 @@
         document.documentElement.dataset.motion = level;
         return { level, scrollBehavior: level === "full" ? "smooth" : "auto" };
       })();
+
+      const preventPinchZoom = (event) => {
+        if (event.touches && event.touches.length > 1) {
+          event.preventDefault();
+        }
+      };
+
+      document.addEventListener("touchstart", preventPinchZoom, { passive: false });
+      document.addEventListener("touchmove", preventPinchZoom, { passive: false });
+      ["gesturestart", "gesturechange", "gestureend"].forEach((type) => {
+        document.addEventListener(type, (event) => event.preventDefault());
+      });
 
       const notesTrack = document.getElementById("notes-track");
       const prompts = [
