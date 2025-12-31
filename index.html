@@ -560,6 +560,26 @@
         }
       }
 
+      @keyframes float-up-lite {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-4px);
+        }
+      }
+
+      @keyframes float-down-lite {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(4px);
+        }
+      }
+
 
       @keyframes sparkle {
         0%,
@@ -651,6 +671,16 @@
         }
         50% {
           transform: translateX(6px);
+        }
+      }
+
+      @keyframes arrowBounceLite {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        50% {
+          transform: translateX(3px);
         }
       }
 
@@ -771,18 +801,34 @@
       }
 
       html[data-motion="lite"] .kitty-figure {
-        animation: none;
+        animation: float-up-lite 8s ease-in-out infinite;
         filter: none;
       }
 
-      html[data-motion="lite"] .sparkles,
-      html[data-motion="lite"] .fireworks,
-      html[data-motion="lite"] .confetti {
+      html[data-motion="lite"] .kitty-figure.delay {
+        animation: float-down-lite 8s ease-in-out infinite;
+      }
+
+      html[data-motion="lite"] .sparkles span {
+        animation-duration: 6s;
+        opacity: 0.55;
+        box-shadow: 0 0 6px rgba(255, 214, 237, 0.6), 0 0 14px rgba(255, 145, 196, 0.3);
+      }
+
+      html[data-motion="lite"] .fireworks span {
+        width: 90px;
+        height: 90px;
+        animation-duration: 6s;
+        opacity: 0.45;
+        border-width: 1px;
+      }
+
+      html[data-motion="lite"] .fireworks span:nth-child(n + 3) {
         display: none;
       }
 
       html[data-motion="lite"] .next-arrow {
-        animation: none;
+        animation: arrowBounceLite 1.6s ease-in-out infinite;
       }
 
       html[data-motion="lite"] .hero-card,
@@ -797,6 +843,12 @@
       html[data-motion="off"] .fireworks,
       html[data-motion="off"] .confetti {
         display: none;
+      }
+
+      html[data-motion="lite"] .confetti span {
+        width: 8px;
+        height: 12px;
+        opacity: 0.7;
       }
     </style>
   </head>
@@ -975,35 +1027,54 @@
       }
 
       function startConfetti() {
-        if (motionSettings.level !== "full") return;
+        if (motionSettings.level === "off") return;
         confetti.innerHTML = "";
+        const isLite = motionSettings.level === "lite";
+        const confettiCount = isLite ? 36 : 80;
+        const durationBase = isLite ? 6 : 3;
+        const durationSpread = isLite ? 4 : 3;
+        const delayMax = isLite ? 4 : 3;
         const colors = ["#ff4f9a", "#ffd166", "#ff93c5", "#ffffff", "#f97316"];
-        for (let i = 0; i < 80; i += 1) {
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < confettiCount; i += 1) {
           const piece = document.createElement("span");
           piece.style.left = Math.random() * 100 + "%";
-          piece.style.animationDelay = Math.random() * 3 + "s";
+          piece.style.animationDelay = Math.random() * delayMax + "s";
           piece.style.background = colors[i % colors.length];
-          piece.style.opacity = (Math.random() * 0.5 + 0.4).toFixed(2);
+          piece.style.opacity = (Math.random() * 0.4 + (isLite ? 0.4 : 0.45)).toFixed(2);
           piece.style.transform = "rotate(" + Math.random() * 360 + "deg)";
-          piece.style.animationDuration = Math.random() * 3 + 3 + "s";
-          confetti.appendChild(piece);
+          piece.style.animationDuration = Math.random() * durationSpread + durationBase + "s";
+          fragment.appendChild(piece);
         }
+        confetti.appendChild(fragment);
       }
 
       function seedSparkles() {
-        if (motionSettings.level !== "full") return;
+        if (motionSettings.level === "off") return;
         sparkles.innerHTML = "";
-        for (let i = 0; i < 18; i += 1) {
+        const isLite = motionSettings.level === "lite";
+        const sparkleCount = isLite ? 8 : 18;
+        const sizeBase = isLite ? 6 : 8;
+        const sizeSpread = isLite ? 6 : 8;
+        const delayMax = isLite ? 3 : 2;
+        const scaleBase = 0.4;
+        const scaleSpread = isLite ? 0.6 : 1.2;
+        const fragment = document.createDocumentFragment();
+        for (let i = 0; i < sparkleCount; i += 1) {
           const sparkle = document.createElement("span");
-          const size = Math.random() * 8 + 8;
+          const size = Math.random() * sizeSpread + sizeBase;
           sparkle.style.width = size + "px";
           sparkle.style.height = size + "px";
           sparkle.style.left = Math.random() * 100 + "%";
           sparkle.style.top = Math.random() * 100 + "%";
-          sparkle.style.animationDelay = Math.random() * 2 + "s";
-          sparkle.style.setProperty("--sparkle-scale", (Math.random() * 1.2 + 0.4).toFixed(2));
-          sparkles.appendChild(sparkle);
+          sparkle.style.animationDelay = Math.random() * delayMax + "s";
+          sparkle.style.setProperty(
+            "--sparkle-scale",
+            (Math.random() * scaleSpread + scaleBase).toFixed(2)
+          );
+          fragment.appendChild(sparkle);
         }
+        sparkles.appendChild(fragment);
       }
 
       function goToCanvas() {
